@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	version="2.0"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd">
+	<description><![CDATA["北京英富森软件股份有限公司-ADE3.0-截取字符串标签"]]></description>
+	<display-name>"ADE3.0-截取字符串标签"</display-name>
+	<tlib-version>2.2</tlib-version>
+	<short-name>ifc</short-name>
+	<uri>/ade-string-tags</uri>
+	<tag>
+		<description><![CDATA[执行截取操作]]></description>
+		<name>string</name>
+		<tag-class>cn.com.infcn.core.taglib.StringTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<description><![CDATA[要截取的字符串]]></description>
+			<name>value</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description><![CDATA[要截取的长度]]></description>
+			<name>length</name>
+			<required>true</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description><![CDATA[字符串长度超出指定的长度后，补充的字符串，默认值"…"]]></description>
+			<name>overflowString</name>
+			<required>false</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description><![CDATA[是否要去除html样式]]></description>
+			<name>wipeHtmlStyle</name>
+			<required>false</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+	</tag>
+</taglib>
