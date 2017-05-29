@@ -165,7 +165,7 @@
 
 
 	<build>
-		<finalName>bzpt</finalName>
+		<finalName>adeGeneratorPage</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
