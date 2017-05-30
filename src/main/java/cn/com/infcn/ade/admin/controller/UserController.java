@@ -1,5 +1,7 @@
 package cn.com.infcn.ade.admin.controller;
 
+import java.util.Enumeration;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -83,6 +85,33 @@ public class UserController extends BaseController {
 		return j;
 	}
 
+	
+	
+	@ResponseBody
+	@RequestMapping("/loginvue")
+	public JsonResult loginvue(User user, HttpServletRequest request) {
+
+		// 返回结果
+		JsonResult j = new JsonResult();
+
+		User u = userService.login(user);
+		if (u != null) {
+
+			u.setModuleList(userService.moduleList(user));
+
+			UserUtil.setLoginUser(request, user);
+
+			j.setSuccess(true);
+			j.setMsg("登陆成功！");
+			j.setObj(user);
+			LogUtil.adminLogsLogin(user.getLoginName(), request);
+		} else {
+			j.setMsg("用户名或密码错误！");
+		}
+
+		return j;
+	}
+	
 	/**
 	 * 用户注册
 	 * 
@@ -116,7 +145,7 @@ public class UserController extends BaseController {
 	public JsonResult logout(HttpSession session,HttpServletRequest request) {
 		User loginUser = UserUtil.getLoginUser(request);
 		JsonResult j = new JsonResult();
-		if (session != null) {
+		if (session != null && loginUser!=null) {
 			LogUtil.adminLogsLogout(loginUser.getLoginName(), request);
 			session.invalidate();
 		}
@@ -143,8 +172,13 @@ public class UserController extends BaseController {
 	 */
 	@RequestMapping("/dataGrid")
 	@ResponseBody
-	public EasyUIDataGrid dataGrid(User user, PageHelper ph) {
+	public EasyUIDataGrid dataGrid(User user, PageHelper ph,HttpServletRequest request) {
+	
+		if (ph.getRows()==0) {
+			ph.setRows(10);
+		}
 		return userService.dataGrid(user, ph);
+	
 	}
 
 	/**
@@ -192,6 +226,21 @@ public class UserController extends BaseController {
 		User u = userService.get(id);
 		request.setAttribute("user", u);
 		return "/admin/userEdit";
+	}
+	
+	@RequestMapping("/getById")
+	@ResponseBody
+	public JsonResult getById(HttpServletRequest request, String id) {
+		JsonResult jsonResult = new JsonResult();
+		try {
+			User u = userService.get(id);
+			jsonResult.setObj(u);
+			jsonResult.setSuccess(true);
+		} catch (Exception e) {
+			jsonResult.setMsg(e.getMessage());
+		}
+		
+		return jsonResult;
 	}
 
 	/**
