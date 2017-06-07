@@ -21,6 +21,7 @@ import cn.com.infcn.core.pageModel.Module;
 import cn.com.infcn.core.pageModel.Tree;
 import cn.com.infcn.core.pageModel.User;
 import cn.com.infcn.core.util.MenuUtil;
+import cn.com.infcn.core.util.StringUtil;
 
 @Service
 public class ModuleService {
@@ -264,6 +265,9 @@ public class ModuleService {
 		}
 		if (module.getModuleIcon() != null && !module.getModuleIcon().equalsIgnoreCase("")) {
 			t.setModuleIcon(module.getModuleIcon());
+		}
+		if (StringUtils.isBlank(t.getId())) {
+			t.setId(StringUtil.generateUUID());
 		}
 		moduleDao.save(t);
 
