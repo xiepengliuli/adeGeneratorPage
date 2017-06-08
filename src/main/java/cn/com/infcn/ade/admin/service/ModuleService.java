@@ -21,6 +21,7 @@ import cn.com.infcn.core.pageModel.Module;
 import cn.com.infcn.core.pageModel.Tree;
 import cn.com.infcn.core.pageModel.User;
 import cn.com.infcn.core.util.MenuUtil;
+import cn.com.infcn.core.util.StringUtil;
 
 @Service
 public class ModuleService {
@@ -265,6 +266,9 @@ public class ModuleService {
 		if (module.getModuleIcon() != null && !module.getModuleIcon().equalsIgnoreCase("")) {
 			t.setModuleIcon(module.getModuleIcon());
 		}
+		if (StringUtils.isBlank(t.getId())) {
+            t.setId(StringUtil.generateUUID());
+        }
 		moduleDao.save(t);
 
 		// 由于当前用户所属的角色，没有访问新添加的模块权限，所以在新添加模块的时候，将当前模块授权给当前用户的所有角色，以便添加模块后在模块列表中能够找到

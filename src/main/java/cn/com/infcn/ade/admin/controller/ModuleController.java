@@ -188,6 +188,34 @@ public class ModuleController extends BaseController {
         request.setAttribute("module", r);
         return "/admin/moduleEdit";
     }
+    
+    /**
+     * 
+     * 根据ID获取对象
+     *
+     * @param id
+     * @return JsonResult
+     */
+    @RequestMapping("/getById")
+    @ResponseBody
+    public JsonResult getById(String id) {
+        
+        JsonResult jsonResult = new JsonResult();
+        
+        Module r;
+        try {
+            r = moduleService.get(id);
+            jsonResult.setObj(r);
+            jsonResult.setSuccess(true);
+        } catch (Exception e) {
+            jsonResult.setMsg(e.getMessage());
+            e.printStackTrace();
+        }
+        
+        return jsonResult;
+    }
+    
+ 
     /**
      * 跳转到模块编辑页面
      * 
