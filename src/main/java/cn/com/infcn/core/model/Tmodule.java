@@ -79,7 +79,7 @@ public class Tmodule implements java.io.Serializable {
     this.id = id;
   }
 
-  @Column(name = "MODULE_DESC", nullable = true, length = 255)
+  @Column(name = "MODULE_DESC", nullable = true, length = 6000)
   public String getModuleDesc() {
     return this.moduleDesc;
   }
